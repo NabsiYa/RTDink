@@ -3535,7 +3535,9 @@ bool read_next_line(int script, char *line)
 	for (int k = g_scriptInstance[script]->current;  (k < g_scriptInstance[script]->end); k++)
 	{
 #ifdef _DEBUG
+#ifndef PLATFORM_PSP2	// it takes forever...
 		LogMsg("..%d",k);
+#endif
 #endif
 		strchar(line, g_scriptBuffer[script][k]);
 		
@@ -17711,6 +17713,12 @@ string GetDMODRootPath(string *pDMODNameOutOrNull)
 	{
 		return "dmods/";
 	}
+
+	if (GetPlatformID() == PLATFORM_ID_PSVITA)
+	{
+		return GetBaseAppPath() + "dmods/";
+	}
+
 	return GetAppCachePath();
 }
 

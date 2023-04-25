@@ -36,6 +36,7 @@ private:
 	void ProcessArrowInput(CL_Vec2f vDir);
 	void OnKillingControls(VariantList *pVList);
 	void OnArcadeInput(VariantList *pVList);
+
 	CL_Vec2f *m_pPos2d;
 
 	/*

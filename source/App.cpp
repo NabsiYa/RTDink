@@ -96,7 +96,7 @@ GamepadManager * GetGamepadManager() {return &g_gamepadManager;}
 
 #else
 
-#if defined RT_WEBOS || defined RTLINUX
+#if defined RT_WEBOS || defined RTLINUX || defined PLATFORM_PSP2
 #include "Audio/AudioManagerSDL.h"
   AudioManagerSDL g_audioManager; //sound in windows and WebOS
   //AudioManager g_audioManager; //to disable sound
@@ -140,6 +140,10 @@ AudioManagerFMOD g_audioManager;
 #endif
 
 #endif
+#endif
+
+#ifdef PLATFORM_PSP2
+#include "Gamepad/GamepadProviderPSP2.h"
 #endif
 
 #ifdef ANDROID_NDK
@@ -493,6 +497,7 @@ bool App::Init()
 	case PLATFORM_ID_BBX:
 	case PLATFORM_ID_WEBOS:
 	case PLATFORM_ID_HTML5:
+	case PLATFORM_ID_PSVITA:
 		CreateDirectoryRecursively(GetSavePath(), GetDMODRootPath());
 		break;
 
@@ -569,6 +574,11 @@ bool App::Init()
 	GamepadProviderDirectX* pTempDirectX = new GamepadProviderDirectX;
 	pTempDirectX->SetIgnoreXInputCapableDevices(true);
 	GetGamepadManager()->AddProvider(pTempDirectX); //use directx joysticks
+	#endif
+
+	#ifdef PLATFORM_PSP2
+	GamepadProviderPSP2* pTemp = new GamepadProviderPSP2();
+	GetGamepadManager()->AddProvider(pTemp);
 	#endif
 
     if (GetVar("check_icade")->GetUINT32() != 0)

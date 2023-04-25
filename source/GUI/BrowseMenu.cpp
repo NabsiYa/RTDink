@@ -465,7 +465,12 @@ void DownloadDMODList(Entity *pMenu)
 	uint32 port = 80;
 	//GetApp()->GetServerInfo(url, port);
 
+	// the url must not have "https://" on the Vita
+#ifdef PLATFORM_PSP2
+	string host = "www.dinknetwork.com";
+#else
 	string host = "https://www.dinknetwork.com";
+#endif
 	string url = "api";
 
 

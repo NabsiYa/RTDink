@@ -382,7 +382,9 @@ int IDirectDrawSurface::BltFast( int x, int y, IDirectDrawSurface *pSrcSurf, rtR
 		
 		if (!pSrcSurf) 
 		{
+#ifndef PLATFORM_PSP2
 			assert(!"Shit!");
+#endif
 			return DD_OK;
 		}
  		

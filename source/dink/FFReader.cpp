@@ -131,7 +131,9 @@ void FFReader::Init( const string &gamePath, const string &dmodGamePath, const s
 		for (int i=0; i < totalFiles; i++)
 	{
 		fread(&f, sizeof(f), 1, m_fp);
+#ifndef PLATFORM_PSP2
 		assert(strlen(f.name) < 13);
+#endif
 		ToLowerCase(f.name);
 		m_fileHeader.push_back(f);
 	}
