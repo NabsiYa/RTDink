@@ -1329,9 +1329,10 @@ bool load_game(int num)
 	}
 	DinkUnloadUnusedGraphicsByUsageTime(0);
     SetDefaultVars(false);
-	
-	DefragUsedPicIDs(); //only save to do after all images are unloaded
 
+#ifndef PLATFORM_PSP2
+	DefragUsedPicIDs(); //only save to do after all images are unloaded
+#endif
 	
 	g_sprite[1].active = true;
 	g_dglos.g_gameMode = 2;
@@ -18648,7 +18649,9 @@ bool LoadState(string const &path, bool bLoadPathsOnly)
 		return false;
 	}
 
+#ifndef PLATFORM_PSP2	// This causes crash on Vita, and without it the game seems to work just fine...
 	DefragUsedPicIDs();
+#endif
 	
 
 	if ( g_dglos.g_gameMode > 2  || g_dglos.m_bRenderBackgroundOnLoad)
