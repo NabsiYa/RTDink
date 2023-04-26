@@ -52,10 +52,24 @@ vita_create_self(eboot.bin ${PROJECT_NAME} UNSAFE)
 vita_create_vpk(${PROJECT_NAME}.vpk ${VITA_TITLEID} eboot.bin
   VERSION ${VITA_VERSION}
   NAME ${VITA_APP_NAME}
+  FILE ${CMAKE_SOURCE_DIR}/livearea/icon0.png sce_sys/icon0.png
+       ${CMAKE_SOURCE_DIR}/livearea/pic0.png sce_sys/pic0.png
+       ${CMAKE_SOURCE_DIR}/livearea/bg0.png sce_sys/livearea/contents/bg0.png
+       ${CMAKE_SOURCE_DIR}/livearea/startup.png sce_sys/livearea/contents/startup.png
+       ${CMAKE_SOURCE_DIR}/livearea/template.xml sce_sys/livearea/contents/template.xml
+
+  FILE ${CMAKE_SOURCE_DIR}/module/libGLESv1_CM.suprx module/libGLESv1_CM.suprx
+       ${CMAKE_SOURCE_DIR}/module/libgpu_es4_ext.suprx module/libgpu_es4_ext.suprx
+       ${CMAKE_SOURCE_DIR}/module/libIMGEGL.suprx module/libIMGEGL.suprx
+       ${CMAKE_SOURCE_DIR}/module/libpvrPSP2_WSEGL.suprx module/libpvrPSP2_WSEGL.suprx
 )
 
 add_custom_target(send
         COMMAND echo destroy | nc 192.168.1.199 1338
         COMMAND curl -T eboot.bin ftp://192.168.1.199:1337/ux0:/app/${VITA_TITLEID}/
         COMMAND echo launch ${VITA_TITLEID} | nc 192.168.1.199 1338
+)
+
+add_custom_target(sendvpk
+        COMMAND curl -T RTDink.vpk ftp://192.168.1.199:1337/ux0:/
 )
