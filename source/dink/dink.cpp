@@ -18648,7 +18648,9 @@ bool LoadState(string const &path, bool bLoadPathsOnly)
 		return false;
 	}
 
+#ifndef PLATFORM_PSP2	// This causes crash on Vita, and without it the game seems to work just fine...
 	DefragUsedPicIDs();
+#endif
 	
 
 	if ( g_dglos.g_gameMode > 2  || g_dglos.m_bRenderBackgroundOnLoad)
