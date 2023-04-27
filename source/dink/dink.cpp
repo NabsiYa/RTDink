@@ -1330,8 +1330,9 @@ bool load_game(int num)
 	DinkUnloadUnusedGraphicsByUsageTime(0);
     SetDefaultVars(false);
 	
+#ifndef PLATFORM_PSP2
 	DefragUsedPicIDs(); //only save to do after all images are unloaded
-
+#endif
 	
 	g_sprite[1].active = true;
 	g_dglos.g_gameMode = 2;
